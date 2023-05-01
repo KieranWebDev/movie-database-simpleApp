@@ -13,22 +13,51 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <h1>Find your film</h1>
-            <h3><a href="./watchlist.html">My WatchList</a></h3>
-        </nav>
-    </header>
-    <main class="search-results">
-        <div class="search-bar">
-            <form>
-                <img src="./imagesAndIcons/search-icon.png" alt="search-icon" class="search-icon">
-                <input id='search-query' 'searchtype="text" placeholder="Search for a movie" name="searchQuery" >
-                <button id="search-button">Search</button>
-            </form>
+    <div class="app-container">
+        <header>
+            <nav>
+                <h1>Find your film</h1>
+                <h3><a href="./watchlist.html">My WatchList</a></h3>
+            </nav>
+        </header>
+
+        <main class="search-results">
+            <div class="search-bar">
+                <form>
+                    <img src="./imagesAndIcons/search-icon.png" alt="search-icon" class="search-icon">
+                    <input id='search-query' 'searchtype="text" placeholder="Search for a movie" name="searchQuery" >
+                    <button id="search-button">Search</button>
+                </form>
+            </div>
+        <div class="search-results-container content-width ">
+            <!-- <img class="start-exploring-image" src="./imagesAndIcons/no-data-initial.png" alt=""> -->
+
+<div class="movie-card">
+    <div class="movie-poster">
+        <img src="./imagesAndIcons/placeholder.png" alt="">
+    </div>
+
+    <div class="movie-info-container">
+       <div class="title-and-rating">
+        <h2>BladeRunner</h2> <span>⭐ 8.1</span>
+        </div>
+        <div class="movie-info">
+            <span>117 min</span>
+            <span>action,Drama,Sci-fi</span>
+            <button id="add-to-watchlist" class="add-to-watchlist"><img src="./imagesAndIcons/add2.png" alt="add-icon">Watchlist</button>
+        </div>
+        <p>A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.</p>
+    </div>
+    
+</div>
+
+
+
 
         </div>
+
     </main>
+</div>
     <script src="./index.js" type="module"></script>
 </body>
 
