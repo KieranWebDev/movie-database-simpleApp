@@ -1,6 +1,6 @@
 const apiKey = '10594f76';
 let neededMovieData = {};
-let wishList = {};
+let wishList = [];
 
 const formInput = document.querySelector('#search-query');
 
@@ -27,7 +27,8 @@ async function getDetailedFilmInfo(e) {
         `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`
       );
       const data = await response.json();
-      const { Title, imdbRating, Runtime, Genre, Plot, Poster } = data;
+      // console.log(data);
+      const { Title, imdbRating, Runtime, Genre, Plot, Poster, imdbID } = data;
       const dataToDisplay = {
         Title,
         imdbRating,
@@ -35,6 +36,7 @@ async function getDetailedFilmInfo(e) {
         Genre,
         Plot,
         Poster,
+        imdbID,
         wishList: false,
       };
       return dataToDisplay;
@@ -62,8 +64,11 @@ function renderHtml(movieData) {
         <div class="movie-info">
             <span>${movie.Runtime}</span>
             <span>${movie.Genre}</span>
-            <button id="add-to-watchlist" class="add-to-watchlist"><img src="./imagesAndIcons/add2.png" alt="add-icon">Watchlist</button>
+            <button id="add-to-watchlist-${movie.imdbID}" class="add-to-watchlist"><img src="./imagesAndIcons/add2.png" alt="add-icon">Watchlist</button>
+            <button id="remove-from-watchlist-${movie.imdbID}" class="remove-from-watchlist hidden"><img src="./imagesAndIcons/subtract-icon.png" alt="add-icon">Watchlist</button>
+      
         </div>
+
         <p>${movie.Plot}</p>
     </div>
 </div>`;
@@ -72,7 +77,40 @@ function renderHtml(movieData) {
 
   document.querySelector('.search-results-container').innerHTML = htmlToDisplay;
 
-  console.log(htmlToDisplay);
+  movieData.forEach((movie) => {
+    document
+      .querySelector(`#add-to-watchlist-${movie.imdbID}`)
+      .addEventListener('click', () => addToWishList(movie));
+  });
+
+  movieData.forEach((movie) => {
+    document
+      .querySelector(`#remove-from-watchlist-${movie.imdbID}`)
+      .addEventListener('click', () => removeFromWatchList(movie));
+  });
+
+  // console.log(htmlToDisplay);
+}
+function addToWishList(movie) {
+  wishList = [...wishList, movie];
+  document
+    .querySelector(`#add-to-watchlist-${movie.imdbID}`)
+    .classList.add('hidden');
+  document
+    .querySelector(`#remove-from-watchlist-${movie.imdbID}`)
+    .classList.remove('hidden');
+  console.log(wishList);
+}
+
+function removeFromWatchList(movie) {
+  wishList = wishList.filter((item) => item.Title !== movie.Title);
+  console.log(wishList);
+  document
+    .querySelector(`#add-to-watchlist-${movie.imdbID}`)
+    .classList.remove('hidden');
+  document
+    .querySelector(`#remove-from-watchlist-${movie.imdbID}`)
+    .classList.add('hidden');
 }
 
 document.querySelector('form').addEventListener('submit', getDetailedFilmInfo);

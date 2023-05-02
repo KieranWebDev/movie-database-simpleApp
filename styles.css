@@ -165,7 +165,8 @@ form img {
   align-items: center;
   gap: 1rem;
 }
-.add-to-watchlist {
+.add-to-watchlist,
+.remove-from-watchlist {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -177,4 +178,7 @@ form img {
   width: 20px;
   height: 20px;
   border-radius: 50%;
+}
+.hidden {
+  display: none;
 }
