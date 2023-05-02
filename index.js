@@ -1,6 +1,7 @@
 const apiKey = '10594f76';
 let neededMovieData = {};
-let wishList = [];
+let watchList = [];
+let savedWatchList = [];
 
 const formInput = document.querySelector('#search-query');
 
@@ -92,47 +93,46 @@ function renderHtml(movieData) {
   // console.log(htmlToDisplay);
 }
 function addToWishList(movie) {
-  wishList = [...wishList, movie];
+  watchList = [...watchList, movie];
+  savedWatchList = localStorage.setItem('watchList', JSON.stringify(watchList));
+
   document
     .querySelector(`#add-to-watchlist-${movie.imdbID}`)
     .classList.add('hidden');
   document
     .querySelector(`#remove-from-watchlist-${movie.imdbID}`)
     .classList.remove('hidden');
-  console.log(wishList);
+  // console.log(watchList);
+  const storedWatchList = localStorage.getItem('watchList');
+  const parsedWatchList = storedWatchList ? JSON.parse(storedWatchList) : [];
+  console.log('yo', parsedWatchList);
 }
 
 function removeFromWatchList(movie) {
-  wishList = wishList.filter((item) => item.Title !== movie.Title);
-  console.log(wishList);
+  watchList = watchList.filter((item) => item.Title !== movie.Title);
+  console.log(watchList);
   document
     .querySelector(`#add-to-watchlist-${movie.imdbID}`)
     .classList.remove('hidden');
   document
     .querySelector(`#remove-from-watchlist-${movie.imdbID}`)
     .classList.add('hidden');
+
+  console.log(parsedWatchList);
 }
 
-document.querySelector('form').addEventListener('submit', getDetailedFilmInfo);
+if (document.querySelector('form')) {
+  document
+    .querySelector('form')
+    .addEventListener('submit', getDetailedFilmInfo);
+}
 
-// function renderSearchResults(movieData) {
-//   const htmlToDisplay = movieData.Search.map((movie) => {
-//     `<div class="movie-card">
-// <div class="movie-poster">
-//     <img src="${movie.Poster}" alt="">
-// </div>
+// document
+//   .querySelector('watchList-link')
+//   .addEventListener('click', renderWatchListHtml);
 
-// <div class="movie-info-container">
-// <div class="title-and-rating">
-//     <h2>${movie.Title}</h2> <span>⭐ </span>
-//     </div>
-//     <div class="movie-info">
-//         <span>117 min</span>
-//         <span>action,Drama,Sci-fi</span>
-//         <button id="add-to-watchlist" class="add-to-watchlist"><img src="./imagesAndIcons/add2.png" alt="add-icon">Watchlist</button>
-//     </div>
-//     <p>A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.</p>
-// </div>
-// </div>`;
-//   });
+// function renderWatchListHtml() {
+//   console.log('clikced');
+//   // document.querySelector('#watch-list)').innerHTML =
 // }
+// export default watchList;
